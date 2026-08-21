@@ -51,7 +51,7 @@ export async function PUT(request) {
     const body = await request.json();
     if (!validState(body)) return NextResponse.json({ error: 'Estrutura de dados inválida.' }, { status: 400 });
     const serialized = JSON.stringify(body);
-    if (serialized.length > 1_500_000) return NextResponse.json({ error: 'O checklist ficou grande demais.' }, { status: 413 });
+    if (serialized.length > 8_000_000) return NextResponse.json({ error: 'O checklist ficou grande demais. Reduza o tamanho das imagens.' }, { status: 413 });
     await put(PATHNAME, serialized, { access: 'private', contentType: 'application/json; charset=utf-8', addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 60 });
     return NextResponse.json({ ok: true });
   } catch (error) {
